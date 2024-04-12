@@ -1,10 +1,6 @@
-import './App.css'
-import TableComponent from "./components/Table/Table.tsx";
+import "./App.css";
+import TablePage from "./pages/TablePage.tsx";
 
-const App = () => (
-    <div>
-        <TableComponent/>
-    </div>
-)
+const App = () => <TablePage />;
 
-export default App
+export default App;

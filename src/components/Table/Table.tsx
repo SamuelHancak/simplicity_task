@@ -8,17 +8,8 @@ import {
 } from "@tanstack/react-table";
 import "./Table.css";
 import { format } from "date-fns";
-
-type CategoriesType = "City" | "Health" | "Science" | "Technology";
-
-type NoticeType = {
-  id: string;
-  title: string;
-  publicationDate: Date;
-  lastUpdate: Date;
-  categories: CategoriesType[];
-  link: string;
-};
+import { DATE_FORMAT, NoticeType } from "./Table.types";
+import { Pencil } from "lucide-react";
 
 const defaultData: NoticeType[] = [
   {
@@ -79,13 +70,13 @@ const columns = [
   }),
   columnHelper.display({
     id: "link",
-    cell: (cell) => (
-      <span onClick={() => console.log(cell)}>{cell.row.original.id}</span>
+    cell: () => (
+      <button style={{ display: "flex", justifyContent: "flex-end" }}>
+        <Pencil size={15} />
+      </button>
     ),
   }),
 ];
-
-const DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
 const formatDate = (date: Date) => {
   return format(date, DATE_FORMAT);
@@ -118,12 +109,10 @@ const TableComponent = () => {
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
                 <th key={header.id}>
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext(),
-                      )}
+                  {flexRender(
+                    header.column.columnDef.header,
+                    header.getContext(),
+                  )}
                 </th>
               ))}
             </tr>
