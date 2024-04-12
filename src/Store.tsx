@@ -41,7 +41,6 @@ const StoreContext = createContext<
       data: NoticeType[];
       addItem: (newData: NoticeType) => void;
       getItem: (id?: string) => NoticeType | undefined;
-      updateItem: (id: string, newData: NoticeType) => void;
     }
   | undefined
 >(undefined);
@@ -59,14 +58,8 @@ export const StoreProvider = ({ children }: { children: any }) => {
   const getItem = (id?: string) =>
     id ? data.find((item) => item.id === id) : undefined;
 
-  const updateItem = (id: string, newData: NoticeType) => {
-    setData((prevData) =>
-      prevData.map((item) => (item.id === id ? newData : item)),
-    );
-  };
-
   return (
-    <StoreContext.Provider value={{ data, addItem, getItem, updateItem }}>
+    <StoreContext.Provider value={{ data, addItem, getItem }}>
       {children}
     </StoreContext.Provider>
   );

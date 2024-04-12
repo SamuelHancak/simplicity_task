@@ -13,7 +13,7 @@ import {
   MenuItem,
   Select,
 } from "@mui/material";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useStore } from "../../Store.tsx";
 import { formatDate } from "../Table/Table.tsx";
@@ -23,12 +23,11 @@ type FormType = Omit<NoticeType, "lastUpdate">;
 const FormComponent = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { getItem, updateItem, addItem } = useStore();
+  const { getItem, addItem } = useStore();
   const noticeItem = getItem(id);
 
   const {
     register,
-    reset,
     handleSubmit,
     formState: { errors },
   } = useForm<FormType>({
@@ -46,7 +45,9 @@ const FormComponent = () => {
     noticeItem?.categories || [],
   );
 
-  const handleChange = (event: ChangeEvent<{ value: unknown }>) => {
+  const handleChange = (
+    event: ChangeEvent<{ value: CategoriesType[] | "string" }>,
+  ) => {
     const {
       target: { value },
     } = event;
@@ -60,31 +61,9 @@ const FormComponent = () => {
   const onSubmit = (data: FormType) => {
     const lastUpdate = new Date();
     const publicationDate = new Date(data.publicationDate);
-    const dataUpdate = { ...data, lastUpdate, publicationDate };
-    if (id) {
-      updateItem(id, {
-        ...dataUpdate,
-        id,
-      });
-    } else {
-      addItem(dataUpdate);
-    }
+    addItem({ ...data, lastUpdate, publicationDate });
     navigate("/");
   };
-
-  const resetForm = () => {
-    reset({
-      title: "",
-      content: "",
-      categories: [],
-      publicationDate: "" as unknown as Date,
-    });
-    setCategories([]);
-  };
-
-  useEffect(() => {
-    !noticeItem && resetForm();
-  }, [noticeItem]);
 
   return (
     <div className="form-wrapper">
@@ -103,7 +82,7 @@ const FormComponent = () => {
           label="Content"
           multiline
           rows={6}
-          {...register("content", { required: false })}
+          {...register("content", { required: true })}
         />
 
         <div>
