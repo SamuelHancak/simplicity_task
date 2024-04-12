@@ -1,11 +1,10 @@
 import Table from "../components/Table/Table.tsx";
-import Sidebar from "../components/Sidebar/Sidebar.tsx";
+import Page from "../components/Page/Page.tsx";
 
 const TablePage = () => (
-  <div style={{ display: "flex" }}>
-    <Sidebar />
+  <Page title="Announcements">
     <Table />
-  </div>
+  </Page>
 );
 
 export default TablePage;

@@ -82,7 +82,7 @@ const formatDate = (date: Date) => {
   return format(date, DATE_FORMAT);
 };
 
-const TableComponent = () => {
+const Table = () => {
   const [data, _setData] = React.useState(() => [...defaultData]);
 
   const table = useReactTable({
@@ -135,4 +135,4 @@ const TableComponent = () => {
   );
 };
 
-export default TableComponent;
+export default Table;
