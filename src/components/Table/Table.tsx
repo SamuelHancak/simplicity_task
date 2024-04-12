@@ -3,6 +3,7 @@ import {
   createColumnHelper,
   flexRender,
   getCoreRowModel,
+  getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 import "./Table.css";
@@ -70,6 +71,7 @@ const columns = [
     id: "lastUpdate",
     cell: (cell) => formatDate(cell.getValue()),
     header: "Last Update",
+    sortingFn: "datetime",
   }),
   columnHelper.accessor("categories", {
     id: "categories",
@@ -77,12 +79,16 @@ const columns = [
   }),
   columnHelper.display({
     id: "link",
-    cell: (cell) => <span>{cell.row.id}</span>,
+    cell: (cell) => (
+      <span onClick={() => console.log(cell)}>{cell.row.original.id}</span>
+    ),
   }),
 ];
 
+const DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+
 const formatDate = (date: Date) => {
-  return format(date, "MM/dd/yyyy HH:mm");
+  return format(date, DATE_FORMAT);
 };
 
 const TableComponent = () => {
@@ -92,6 +98,16 @@ const TableComponent = () => {
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    debugTable: true,
+    initialState: {
+      sorting: [
+        {
+          id: "lastUpdate",
+          desc: true,
+        },
+      ],
+    },
+    getSortedRowModel: getSortedRowModel(),
   });
 
   return (
