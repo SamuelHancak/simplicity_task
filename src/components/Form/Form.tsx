@@ -14,16 +14,33 @@ import {
   Select,
 } from "@mui/material";
 import { ChangeEvent, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useStore } from "../../Store.tsx";
 
 type FormData = Omit<NoticeType, "lastUpdate" | "link">;
 
 const FormComponent = () => {
+  const { id } = useParams();
+  const { getItem } = useStore();
+  const noticeItem = getItem(id);
+  console.log({ noticeItem });
+
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>();
-  const [categories, setCategories] = useState<CategoriesType[]>([]);
+  } = useForm<FormData>({
+    defaultValues: {
+      title: noticeItem?.title,
+      content: noticeItem?.content,
+      categories: noticeItem?.categories,
+      publicationDate: noticeItem?.publicationDate,
+    },
+    reValidateMode: "onChange",
+  });
+  const [categories, setCategories] = useState<CategoriesType[]>(
+    noticeItem?.categories || [],
+  );
 
   const handleChange = (event: ChangeEvent<{ value: unknown }>) => {
     const {
