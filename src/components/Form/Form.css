@@ -1,0 +1,33 @@
+.form-class {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 500px;
+}
+
+.form-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.no-margin-bottom {
+    margin-bottom: 0;
+}
+
+.text-color {
+    color: #8b8787;
+}
+
+.button {
+    width: 100px;
+    align-self: flex-end;
+    background-color: #ffb64a;
+    border-radius: 25px;
+    padding: 8px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+}

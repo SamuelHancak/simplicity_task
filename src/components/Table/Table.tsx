@@ -1,4 +1,3 @@
-import React from "react";
 import {
   createColumnHelper,
   flexRender,
@@ -12,7 +11,7 @@ import { DATE_FORMAT, NoticeType } from "./Table.types";
 import { Pencil } from "lucide-react";
 import { Link } from "react-router-dom";
 
-const defaultData: NoticeType[] = [
+const DEFAULT_DATA: NoticeType[] = [
   {
     id: "notice-0",
     title: "Notice 1",
@@ -49,7 +48,7 @@ const defaultData: NoticeType[] = [
 
 const columnHelper = createColumnHelper<NoticeType>();
 
-const columns = [
+const COLUMNS = [
   columnHelper.accessor("title", {
     id: "title",
     header: "Title",
@@ -88,11 +87,9 @@ const formatDate = (date: Date) => {
 };
 
 const Table = () => {
-  const [data, _setData] = React.useState(() => [...defaultData]);
-
   const table = useReactTable({
-    data,
-    columns,
+    data: [...DEFAULT_DATA],
+    columns: COLUMNS,
     getCoreRowModel: getCoreRowModel(),
     debugTable: true,
     initialState: {
