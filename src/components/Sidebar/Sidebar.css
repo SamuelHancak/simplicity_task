@@ -1,8 +1,10 @@
 aside {
+    box-sizing: border-box;
     height: 100vh;
     width: 250px;
     background-color: #fafafa;
     padding: 8px;
+    flex: 0 0 auto;
 }
 
 nav {
@@ -26,6 +28,7 @@ ul {
     background-color: #fff7d1;
     border-radius: 8px;
     cursor: pointer;
+    white-space: nowrap;
 }
 
 a {

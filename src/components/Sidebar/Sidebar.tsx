@@ -1,5 +1,5 @@
 import "./Sidebar.css";
-import { BellRing, Square } from "lucide-react";
+import { BellRing, CirclePlus, Square } from "lucide-react";
 import { SidebarItemType } from "./Sidebar.types.ts";
 import { Link } from "react-router-dom";
 
@@ -11,16 +11,27 @@ const Sidebar = () => (
     </div>
     <nav>
       <ul>
-        <SidebarItem icon={<BellRing size={20} />} text="Announcements" />
+        <SidebarItem
+          icon={<BellRing size={20} />}
+          text="Announcements"
+          to="/"
+        />
+      </ul>
+      <ul>
+        <SidebarItem
+          icon={<CirclePlus size={20} />}
+          text="Add announcement"
+          to="/announcements"
+        />
       </ul>
     </nav>
   </aside>
 );
 
 // @internal
-const SidebarItem = ({ icon, text }: SidebarItemType) => (
+const SidebarItem = ({ icon, text, to }: SidebarItemType) => (
   <li>
-    <Link className="item" to="/">
+    <Link className="item" to={to}>
       {icon} {text}
     </Link>
   </li>

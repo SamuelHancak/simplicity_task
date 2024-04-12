@@ -1,4 +1,4 @@
-export const DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+export const DATE_FORMAT = "MM/dd/yyyy HH:mm";
 
 export const CATEGORIES = ["City", "Health", "Science", "Technology"] as const;
 
@@ -10,6 +10,5 @@ export type NoticeType = {
   publicationDate: Date;
   lastUpdate: Date;
   categories: CategoriesType[];
-  link: string;
   content?: string;
 };

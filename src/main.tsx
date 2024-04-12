@@ -16,7 +16,7 @@ const router = createBrowserRouter([
         element: <TablePage />,
       },
       {
-        path: "/announcements/:id",
+        path: "/announcements/:id?",
         element: <FormPage />,
       },
     ],

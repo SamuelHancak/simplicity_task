@@ -13,28 +13,32 @@ import {
   MenuItem,
   Select,
 } from "@mui/material";
-import { ChangeEvent, useState } from "react";
-import { useParams } from "react-router-dom";
+import { ChangeEvent, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { useStore } from "../../Store.tsx";
+import { formatDate } from "../Table/Table.tsx";
 
-type FormData = Omit<NoticeType, "lastUpdate" | "link">;
+type FormType = Omit<NoticeType, "lastUpdate">;
 
 const FormComponent = () => {
+  const navigate = useNavigate();
   const { id } = useParams();
-  const { getItem } = useStore();
+  const { getItem, updateItem, addItem } = useStore();
   const noticeItem = getItem(id);
-  console.log({ noticeItem });
 
   const {
     register,
+    reset,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>({
+  } = useForm<FormType>({
     defaultValues: {
       title: noticeItem?.title,
       content: noticeItem?.content,
       categories: noticeItem?.categories,
-      publicationDate: noticeItem?.publicationDate,
+      publicationDate:
+        noticeItem?.publicationDate &&
+        (formatDate(noticeItem?.publicationDate) as unknown as Date),
     },
     reValidateMode: "onChange",
   });
@@ -53,15 +57,41 @@ const FormComponent = () => {
     );
   };
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit = (data: FormType) => {
     const lastUpdate = new Date();
     const publicationDate = new Date(data.publicationDate);
-    console.log({ ...data, lastUpdate, publicationDate });
+    const dataUpdate = { ...data, lastUpdate, publicationDate };
+    if (id) {
+      updateItem(id, {
+        ...dataUpdate,
+        id,
+      });
+    } else {
+      addItem(dataUpdate);
+    }
+    navigate("/");
   };
+
+  const resetForm = () => {
+    reset({
+      title: "",
+      content: "",
+      categories: [],
+      publicationDate: "" as unknown as Date,
+    });
+    setCategories([]);
+  };
+
+  useEffect(() => {
+    !noticeItem && resetForm();
+  }, [noticeItem]);
 
   return (
     <div className="form-wrapper">
-      <form className="form-class" onSubmit={handleSubmit(onSubmit)}>
+      <form
+        className="form-class"
+        onSubmit={handleSubmit(onSubmit, () => alert("Invalid form!"))}
+      >
         <TextField
           label="Title"
           error={Boolean(errors.title)}

@@ -9,7 +9,6 @@ const DEFAULT_DATA: NoticeType[] = [
     publicationDate: new Date("2022-01-01T10:20:30Z"),
     lastUpdate: new Date("2022-01-02T11:30:45Z"),
     categories: ["City", "Health"],
-    link: "https://example.com/notice-1",
   },
   {
     id: "notice-1",
@@ -18,7 +17,6 @@ const DEFAULT_DATA: NoticeType[] = [
     publicationDate: new Date("2022-02-03T12:40:50Z"),
     lastUpdate: new Date("2022-02-04T13:50:55Z"),
     categories: ["Science", "Technology"],
-    link: "https://example.com/notice-2",
   },
   {
     id: "notice-2",
@@ -27,7 +25,6 @@ const DEFAULT_DATA: NoticeType[] = [
     publicationDate: new Date("2022-03-05T14:00:00Z"),
     lastUpdate: new Date("2022-03-06T15:10:15Z"),
     categories: ["City"],
-    link: "https://example.com/notice-3",
   },
   {
     id: "notice-3",
@@ -36,7 +33,6 @@ const DEFAULT_DATA: NoticeType[] = [
     publicationDate: new Date("2022-04-07T16:20:25Z"),
     lastUpdate: new Date("2022-04-08T17:30:35Z"),
     categories: ["Health", "Science"],
-    link: "https://example.com/notice-4",
   },
 ];
 
@@ -53,8 +49,11 @@ const StoreContext = createContext<
 export const StoreProvider = ({ children }: { children: any }) => {
   const [data, setData] = useState(DEFAULT_DATA);
 
-  const addItem = (newData: NoticeType) => {
-    setData((prevData) => [...prevData, newData]);
+  const addItem = (newItem: NoticeType) => {
+    setData((prevData) => [
+      ...prevData,
+      { ...newItem, id: `notice-${prevData.length}` },
+    ]);
   };
 
   const getItem = (id?: string) =>

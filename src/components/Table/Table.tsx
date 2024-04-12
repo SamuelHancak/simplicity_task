@@ -48,7 +48,7 @@ const COLUMNS = [
   }),
 ];
 
-const formatDate = (date: Date) => {
+export const formatDate = (date: Date) => {
   return format(date, DATE_FORMAT);
 };
 
@@ -58,7 +58,6 @@ const Table = () => {
     data,
     columns: COLUMNS,
     getCoreRowModel: getCoreRowModel(),
-    debugTable: true,
     initialState: {
       sorting: [
         {

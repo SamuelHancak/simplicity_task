@@ -4,4 +4,5 @@ import { ReactNode } from "react";
 export type SidebarItemType = {
   icon: ReactNode;
   text: string;
+  to: string;
 };
