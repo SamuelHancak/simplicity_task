@@ -14,9 +14,9 @@ th {
     font-weight: bold;
 }
 
-button {
+.link-button {
+    width: 100%;
     background-color: unset;
-    border: none;
     color: black;
     text-align: center;
     text-decoration: none;

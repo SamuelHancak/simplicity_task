@@ -1,6 +1,7 @@
 import "./Sidebar.css";
 import { BellRing, Square } from "lucide-react";
 import { SidebarItemType } from "./Sidebar.types.ts";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => (
   <aside>
@@ -19,9 +20,9 @@ const Sidebar = () => (
 // @internal
 const SidebarItem = ({ icon, text }: SidebarItemType) => (
   <li>
-    <button className="item" onClick={() => console.log("sidebar item")}>
+    <Link className="item" to="/">
       {icon} {text}
-    </button>
+    </Link>
   </li>
 );
 

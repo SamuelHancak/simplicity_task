@@ -10,6 +10,7 @@ import "./Table.css";
 import { format } from "date-fns";
 import { DATE_FORMAT, NoticeType } from "./Table.types";
 import { Pencil } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const defaultData: NoticeType[] = [
   {
@@ -70,10 +71,14 @@ const columns = [
   }),
   columnHelper.display({
     id: "link",
-    cell: () => (
-      <button style={{ display: "flex", justifyContent: "flex-end" }}>
+    cell: (cell) => (
+      <Link
+        className="link-button"
+        style={{ display: "flex", justifyContent: "flex-end" }}
+        to={`/announcements/${cell.row.original.id}`}
+      >
         <Pencil size={15} />
-      </button>
+      </Link>
     ),
   }),
 ];
